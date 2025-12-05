@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الوظائف المتاحة - تكوين</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="scripts/core.js"></script>
+  <script defer src="scripts/forms.js"></script>
+  <script defer src="scripts/jobs.js"></script>
+</head>
+<body>
+  <header class="header-hero">
+    <h1>الوظائف المتاحة</h1>
+    <p>استعرض الفرص، فلتر النتائج، وقدّم مباشرة عبر نموذج سريع وآمن.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="jobs.html">الوظائف</a>
+    <a href="companies.html">الشركات</a>
+    <a href="jobseekers.html">الباحثين</a>
+    <a href="about.html">من نحن</a>
+    <a href="contact.html">تواصل معنا</a>
+    <div class="nav-tools"><button class="btn" onclick="toggleDarkMode()">الوضع الليلي</button></div>
+  </nav>
+
+  <main class="main">
+    <section class="card">
+      <h2 class="section-title">بحث وفلترة</h2>
+      <div class="grid">
+        <div><label>بحث عام</label><input id="q" type="text" placeholder="المسمى، الشركة، الكلمات المفتاحية"></div>
+        <div><label>الموقع</label><input id="loc" type="text" placeholder="دمشق، الرياض، عن بُعد..."></div>
+        <div><label>نوع العقد</label>
+          <select id="ct">
+            <option value="">الكل</option>
+            <option>دوام كامل</option>
+            <option>دوام جزئي</option>
+            <option>عن بُعد</option>
+            <option>مؤقت</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">قائمة الوظائف</h2>
+      <div id="jobs-list" class="grid"></div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">نشر وظيفة (للشركات)</h2>
+      <form id="job-form" onsubmit="submitForm(event,'/api/jobs',()=>({title:sanitize(title.value,140),company:sanitize(company.value,140),location:sanitize(location.value,120),contract_type:sanitize(contract.value,80),description:sanitize(description.value,2000)}))">
+        <label>المسمى الوظيفي</label><input id="title" type="text" required>
+        <label>اسم الشركة</label><input id="company" type="text">
+        <label>الموقع</label><input id="location" type="text">
+        <label>نوع العقد</label><select id="contract"><option>دوام كامل</option><option>دوام جزئي</option><option>عن بُعد</option><option>مؤقت</option></select>
+        <label>الوصف</label><textarea id="description" rows="4"></textarea>
+        <button class="btn" type="submit">نشر الوظيفة</button>
+      </form>
+      <small class="hint">نموذج تجريبي؛ ربط النشر يعتمد على موافقة الشركة في الـ API.</small>
+    </section>
+  </main>
+
+  <div class="toast"></div>
+  <div class="modal-backdrop"></div>
+  <footer class="footer">© 2025 منصة تكوين</footer>
+</body>
+</html>

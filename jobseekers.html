@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الباحثين عن عمل - تكوين</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="scripts/core.js"></script>
+  <script defer src="scripts/forms.js"></script>
+</head>
+<body>
+  <header class="header-hero">
+    <h1>تسجيل الباحثين عن عمل</h1>
+    <p>املأ بياناتك لتحصل على فرص تلائم خبرتك ومهاراتك.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="jobs.html">الوظائف</a>
+    <a href="companies.html">الشركات</a>
+    <a href="jobseekers.html">الباحثين</a>
+    <a href="about.html">من نحن</a>
+    <a href="contact.html">تواصل معنا</a>
+    <div class="nav-tools"><button class="btn" onclick="toggleDarkMode()">الوضع الليلي</button></div>
+  </nav>
+
+  <main class="main">
+    <section class="card">
+      <h2 class="section-title">نموذج الباحث/ـة</h2>
+      <form id="seeker-form" onsubmit="submitForm(event,'/api/jobseekers',()=>({fullname:sanitize(fullname.value,120),email:sanitize(email.value,180),phone:sanitize(phone.value,40),field:sanitize(field.value,80),experience:parseInt(experience.value||'0',10),resume_url:sanitize(resume_url.value,300)}))">
+        <label>الاسم الكامل</label><input id="fullname" type="text" required>
+        <label>البريد الإلكتروني</label><input id="email" type="email" required>
+        <label>رقم الهاتف</label><input id="phone" type="tel">
+        <label>المجال المهني</label><input id="field" type="text">
+        <label>سنوات الخبرة</label><input id="experience" type="number" min="0" max="50">
+        <label>رابط السيرة الذاتية (اختياري)</label><input id="resume_url" type="url">
+        <button class="btn" type="submit">إرسال</button>
+      </form>
+    </section>
+  </main>
+
+  <div class="toast"></div>
+  <footer class="footer">© 2025 منصة تكوين</footer>
+</body>
+</html>

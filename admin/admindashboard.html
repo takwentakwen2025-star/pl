@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم - تكوين</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../scripts/core.js"></script>
+</head>
+<body>
+  <header class="header-hero">
+    <h1>لوحة التحكم</h1>
+    <p>إدارة الوظائف، الشركات، والباحثين</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">الرئيسية</a>
+    <a href="../jobs.html">الوظائف</a>
+    <a href="../companies.html">الشركات</a>
+    <a href="../jobseekers.html">الباحثين</a>
+    <a href="settings.html">إعدادات المنصة</a>
+    <div class="nav-tools"><button class="btn" onclick="toggleDarkMode()">الوضع الليلي</button></div>
+  </nav>
+
+  <main class="main">
+    <section class="grid">
+      <div class="card">
+        <h2>الوظائف</h2>
+        <p class="hint">تحديث، تعديل، حذف، تغيير الحالة.</p>
+        <div style="display:flex; gap:8px; margin-bottom:10px;">
+          <button class="btn" onclick="refreshJobs()">تحديث</button>
+        </div>
+        <table id="jobs-table"><thead><tr><th>المسمى</th><th>الشركة</th><th>الموقع</th><th>العقد</th><th>إجراءات</th></tr></thead><tbody></tbody></table>
+      </div>
+
+      <div class="card">
+        <h2>الشركات</h2>
+        <p class="hint">قبول/رفض طلبات الشركات.</p>
+        <div style="display:flex; gap:8px; margin-bottom:10px;">
+          <button class="btn" onclick="refreshCompanies()">تحديث</button>
+        </div>
+        <table id="companies-table"><thead><tr><th>الاسم</th><th>البريد</th><th>الهاتف</th><th>القطاع</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody></tbody></table>
+      </div>
+
+      <div class="card">
+        <h2>الباحثين</h2>
+        <p class="hint">تفعيل/تعطيل الحسابات.</p>
+        <div style="display:flex; gap:8px; margin-bottom:10px;">
+          <button class="btn" onclick="refreshSeekers()">تحديث</button>
+        </div>
+        <table id="seekers-table"><thead><tr><th>الاسم</th><th>البريد</th><th>الهاتف</th><th>المجال</th><th>إجراءات</th></tr></thead><tbody></tbody></table>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast"></div>
+  <footer class="footer">© 2025 منصة تكوين</footer>
+
+  <script>
+    async function refreshJobs() {
+      const res = await fetch('/api/jobs'); const data = await res.json().catch(()=>({jobs:[]}));
+      const tb = document.querySelector('#jobs-table tbody'); tb.innerHTML='';
+      (data.jobs||[]).forEach(j=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML = `<td>${j.title}</td><td>${j.company||'—'}</td><td>${j.location||'—'}</td><td>${j.contract_type||'—'}</td>
+        <td><button class="btn" onclick="editJob('${j.id}')">تعديل</button> <button class="btn" onclick="deleteJob('${j.id}')">حذف</button></td>`;
+        tb.appendChild(tr);
+      });
+      showToast('تم تحديث الوظائف');
+    }
+
+    async function refreshCompanies() {
+      const res = await fetch('/api/companies'); const data = await res.json().catch(()=>({companies:[]}));
+      const tb = document.querySelector('#companies-table tbody'); tb.innerHTML='';
+      (data.companies||[]).forEach(c=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML = `<td>${c.name}</td><td>${c.email}</td><td>${c.phone||'—'}</td><td>${c.sector||'—'}</td><td>${c.status||'pending'}</td>
+        <td><button class="btn" onclick="approveCompany('${c.id}')">قبول</button> <button class="btn" onclick="rejectCompany('${c.id}')">رفض</button></td>`;
+        tb.appendChild(tr);
+      });
+      showToast('تم تحديث الشركات');
+    }
+
+    async function refreshSeekers() {
+      const res = await fetch('/api/jobseekers'); const data = await res.json().catch(()=>({jobseekers:[]}));
+      const tb = document.querySelector('#seekers-table tbody'); tb.innerHTML='';
+      (data.jobseekers||[]).forEach(s=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML = `<td>${s.fullname}</td><td>${s.email}</td><td>${s.phone||'—'}</td><td>${s.field||'—'}</td>
+        <td><button class="btn" onclick="enableSeeker('${s.id}')">تفعيل</button> <button class="btn" onclick="disableSeeker('${s.id}')">تعطيل</button></td>`;
+        tb.appendChild(tr);
+      });
+      showToast('تم تحديث الباحثين');
+    }
+
+    function editJob(id){ showToast('تعديل وظيفة: '+id); }
+    function deleteJob(id){ fetch('/api/jobs/delete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})}).then(()=>showToast('حذف وظيفة '+id)); }
+    function approveCompany(id){ fetch('/api/companies/approve',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})}).then(()=>showToast('قبول شركة '+id)); }
+    function rejectCompany(id){ fetch('/api/companies/reject',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})}).then(()=>showToast('رفض شركة '+id)); }
+    function enableSeeker(id){ fetch('/api/jobseekers/enable',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})}).then(()=>showToast('تفعيل حساب '+id)); }
+    function disableSeeker(id){ fetch('/api/jobseekers/disable',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})}).then(()=>showToast('تعطيل حساب '+id)); }
+
+    document.addEventListener('DOMContentLoaded', ()=>{ refreshJobs(); refreshCompanies(); refreshSeekers(); });
+  </script>
+</body>
+</html>

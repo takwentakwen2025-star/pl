@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الشركات - تكوين</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="scripts/core.js"></script>
+  <script defer src="scripts/forms.js"></script>
+</head>
+<body>
+  <header class="header-hero">
+    <h1>تسجيل الشركات</h1>
+    <p>سجّل شركتك وانشر وظائفك بسهولة مع تكوين.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="jobs.html">الوظائف</a>
+    <a href="companies.html">الشركات</a>
+    <a href="jobseekers.html">الباحثين</a>
+    <a href="about.html">من نحن</a>
+    <a href="contact.html">تواصل معنا</a>
+    <div class="nav-tools"><button class="btn" onclick="toggleDarkMode()">الوضع الليلي</button></div>
+  </nav>
+
+  <main class="main">
+    <section class="card">
+      <h2 class="section-title">نموذج الشركة</h2>
+      <form id="company-form" onsubmit="submitForm(event,'/api/companies',()=>({name:sanitize(name.value,140),email:sanitize(email.value,180),phone:sanitize(phone.value,40),sector:sanitize(sector.value,80),location:sanitize(location.value,120),about:sanitize(about.value,1000),logo_url:sanitize(logo_url.value,300)}))">
+        <label>اسم الشركة</label><input id="name" type="text" required>
+        <label>البريد الإلكتروني الرسمي</label><input id="email" type="email" required>
+        <label>رقم الهاتف</label><input id="phone" type="tel">
+        <label>القطاع</label><input id="sector" type="text">
+        <label>الموقع</label><input id="location" type="text">
+        <label>نبذة</label><textarea id="about" rows="4"></textarea>
+        <label>رابط شعار الشركة (اختياري)</label><input id="logo_url" type="url">
+        <button class="btn" type="submit">إرسال</button>
+      </form>
+      <small class="hint">يتم قبول/رفض الشركة من لوحة الإدارة قبل السماح بالنشر.</small>
+    </section>
+  </main>
+
+  <div class="toast"></div>
+  <footer class="footer">© 2025 منصة تكوين</footer>
+</body>
+</html>

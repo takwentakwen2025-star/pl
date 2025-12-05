@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل دخول الإدارة - تكوين</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../scripts/core.js"></script>
+</head>
+<body>
+  <header class="header-hero">
+    <h1>تسجيل دخول الإدارة</h1>
+    <p>هذه الصفحة مخصصة للمشرفين فقط.</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">الرئيسية</a>
+    <a href="../jobs.html">الوظائف</a>
+    <a href="../companies.html">الشركات</a>
+    <a href="../jobseekers.html">الباحثين</a>
+    <div class="nav-tools"><button class="btn" onclick="toggleDarkMode()">الوضع الليلي</button></div>
+  </nav>
+
+  <main class="main">
+    <section class="card" style="max-width:480px;margin-inline:auto;">
+      <h2 class="section-title">الدخول إلى لوحة التحكم</h2>
+      <form id="login-form">
+        <label>البريد الإلكتروني</label><input id="email" type="email" required>
+        <label>كلمة المرور</label><input id="password" type="password" required>
+        <button class="btn" type="submit">دخول</button>
+      </form>
+      <small class="hint">اربطِ هذه الصفحة مع نظام مصادقة فعلي (Supabase Auth أو غيره).</small>
+    </section>
+  </main>
+
+  <div class="toast"></div>
+  <footer class="footer">© 2025 منصة تكوين</footer>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      // مصادقة فعلية مطلوبة هنا
+      showToast('تم تسجيل الدخول (مثال)');
+      setTimeout(()=>location.href='dashboard.html',800);
+    });
+  </script>
+</body>
+</html>

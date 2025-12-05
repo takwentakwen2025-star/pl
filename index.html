@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>منصة تكوين للتوظيف</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="scripts/core.js"></script>
+</head>
+<body>
+  <header class="header-hero">
+    <h1>تكوين | نربط الشركات بالمواهب</h1>
+    <p>منصة إنسانية، بسيطة، وآمنة لرحلة التوظيف: نشر الوظائف، إدارة طلبات الشركات والباحثين، ولوحة تحكم احترافية.</p>
+    <div class="hero-actions">
+      <a class="btn" href="jobs.html">استعراض الوظائف</a>
+      <a class="btn btn-outline" href="companies.html">تسجيل شركة</a>
+      <a class="btn btn-outline" href="jobseekers.html">تسجيل باحث/ـة</a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="jobs.html">الوظائف</a>
+    <a href="companies.html">الشركات</a>
+    <a href="jobseekers.html">الباحثين</a>
+    <a href="about.html">من نحن</a>
+    <a href="contact.html">تواصل معنا</a>
+    <div class="nav-tools"><button class="btn" onclick="toggleDarkMode()">الوضع الليلي</button></div>
+  </nav>
+
+  <main class="main">
+    <section class="grid">
+      <div class="card">
+        <h2>لماذا تكوين؟</h2>
+        <p>واجهة RTL أنيقة بخط تجوال، بيانات آمنة، ولوحة تحكم تمنحك صلاحيات كاملة لإدارة التجربة.</p>
+        <small class="hint">الأزرق والذهبي يعكسان الثقة والاحترافية.</small>
+      </div>
+      <div class="card">
+        <h2>ابدئي الآن</h2>
+        <p>انشري وظيفة لشركتك أو سجّلي كباحث/ـة عن عمل خلال دقائق.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="jobs.html">نشر/استعراض وظائف</a>
+          <a class="btn" href="companies.html">تسجيل شركة</a>
+          <a class="btn" href="jobseekers.html">تسجيل باحث/ـة</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>قصص نجاح</h2>
+        <p>نماذج واقعية لباحثين بدأوا رحلتهم مع تكوين وشركات وجدت المواهب المناسبة.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" aria-live="polite"></div>
+  <div class="modal-backdrop" role="dialog" aria-modal="true"></div>
+  <footer class="footer">© 2025 منصة تكوين – جميع الحقوق محفوظة</footer>
+</body>
+</html>

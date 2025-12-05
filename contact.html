@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تواصل معنا - تكوين</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="scripts/core.js"></script>
+  <script defer src="scripts/forms.js"></script>
+</head>
+<body>
+  <header class="header-hero">
+    <h1>تواصل معنا</h1>
+    <p>نسعد بسماعك والإجابة على أسئلتك واقتراحاتك.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="jobs.html">الوظائف</a>
+    <a href="companies.html">الشركات</a>
+    <a href="jobseekers.html">الباحثين</a>
+    <a href="about.html">من نحن</a>
+    <a href="contact.html">تواصل معنا</a>
+    <div class="nav-tools"><button class="btn" onclick="toggleDarkMode()">الوضع الليلي</button></div>
+  </nav>
+
+  <main class="main">
+    <section class="card">
+      <h2 class="section-title">نموذج الاتصال</h2>
+      <form id="contact-form" onsubmit="submitForm(event,'/api/contact',()=>({name:sanitize(name.value,120),email:sanitize(email.value,180),message:sanitize(message.value,2000)}))">
+        <label>الاسم</label><input id="name" type="text" required>
+        <label>البريد الإلكتروني</label><input id="email" type="email" required>
+        <label>رسالتك</label><textarea id="message" rows="5" required></textarea>
+        <button class="btn" type="submit">إرسال الرسالة</button>
+      </form>
+    </section>
+  </main>
+
+  <div class="toast"></div>
+  <footer class="footer">© 2025 منصة تكوين</footer>
+</body>
+</html>
